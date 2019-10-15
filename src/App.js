@@ -1,12 +1,14 @@
 import React from 'react';
-import GlobalSearch from './components/GlobalSearch/GlobalSearch.js';
+// import GlobalSearch from './components/GlobalSearch/GlobalSearch';
+import HelloRewards from './components/HelloRewards/HelloRewards';
 import logo from './logo.svg';
 import './App.css';
 
 function App() {
   return (
     <div className="App">
-      <GlobalSearch />
+      <HelloRewards oktaid='00u1825xxdqWqi3pJ2p7'/>
+      {/* <GlobalSearch /> */}
       <header className="App-header">
         <img src={logo} className="App-logo" alt="logo" />
         <p>
