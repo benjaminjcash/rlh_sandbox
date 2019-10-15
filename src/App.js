@@ -1,10 +1,12 @@
 import React from 'react';
+import GlobalSearch from './components/GlobalSearch/GlobalSearch.js';
 import logo from './logo.svg';
 import './App.css';
 
 function App() {
   return (
     <div className="App">
+      <GlobalSearch />
       <header className="App-header">
         <img src={logo} className="App-logo" alt="logo" />
         <p>
