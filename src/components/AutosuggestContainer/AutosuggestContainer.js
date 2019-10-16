@@ -1,17 +1,6 @@
 import React from 'react';
-import { Card, CardBody, CardText } from 'reactstrap';
 import Autosuggest from 'react-autosuggest';
-
-const suggestions = ["denver", "denny's", "dentist"];
-const getSuggestionValue = suggestion => suggestion;
-const renderSuggestion = suggestion => (
-    <Card>
-        <CardBody>
-            <CardText>{suggestion}</CardText>
-        </CardBody>
-    </Card>
-);
-
+import axios from 'axios';
 
 export default class AutosuggestContainer extends React.Component {
     constructor(props) {
@@ -22,19 +11,45 @@ export default class AutosuggestContainer extends React.Component {
         }
     }
 
-    getSuggestions = (value) => {
-        const inputValue = value.trim().toLowerCase();
-        const inputLength = inputValue.length;
+    getSuggestionValue = suggestion => suggestion.display;
+    
+    getSectionSuggestions = section => section.suggestions;
 
-        return inputLength === 0 ? [] : suggestions.filter(dword => {
-            return dword.toLowerCase().slice(0, inputLength) === inputValue;
-        });
-    }   
+    renderSuggestion = suggestion => <p>{suggestion.display}</p>;
+
+    renderSectionTitle = section => <p>{section.title}</p>;
+
+    parseSuggestionResponse = (data) => {
+        return [
+            {
+                title: 'Cities',
+                suggestions: data.filter((data) => data.type === 'cities')
+            },
+            {
+                title: 'Hotels',
+                suggestions: data.filter((data) => data.type === 'hotels')
+            },
+            {
+                title: 'Points',
+                suggestions: data.filter((data) => data.type === 'points')
+            },
+            {
+                title: 'Airports',
+                suggestions: data.filter((data) => data.type === 'airports')
+            }
+        ];
+    }
 
     onSuggestionsFetchRequested = ({ value }) => {
-        this.setState({
-            suggestions: this.getSuggestions(value)
-        });
+        axios
+            .get(`https://staging.redlion.com/api/autocomplete?_format=json&search=${value}`)
+            .then((res) => {
+                const { data } = res;
+                const parsedSuggestions = this.parseSuggestionResponse(data);
+                this.setState({
+                    suggestions: parsedSuggestions
+                });
+            });
     }
 
     onSuggestionsClearRequested = () => {
@@ -61,9 +76,12 @@ export default class AutosuggestContainer extends React.Component {
                 suggestions={suggestions}
                 onSuggestionsFetchRequested={this.onSuggestionsFetchRequested}
                 onSuggestionsClearRequested={this.onSuggestionsClearRequested}
-                getSuggestionValue={getSuggestionValue}
-                renderSuggestion={renderSuggestion}
+                getSuggestionValue={this.getSuggestionValue}
                 inputProps={inputProps}
+                multiSection={true}
+                renderSectionTitle={this.renderSectionTitle}
+                renderSuggestion={this.renderSuggestion}
+                getSectionSuggestions={this.getSectionSuggestions}
             />
         )
     }       
