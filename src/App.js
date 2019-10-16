@@ -1,6 +1,7 @@
 import React from 'react';
 import { Container, Row, Col } from 'reactstrap';
 import AutosuggestContainer from './components/AutosuggestContainer/AutosuggestContainer';
+import DatePickerContainer from './components/DatePickerContainer/DatePickerContainer';
 
 function App() {
   return (
@@ -8,6 +9,9 @@ function App() {
       <Row>
         <Col>
           <AutosuggestContainer />
+        </Col>
+        <Col>
+          <DatePickerContainer />
         </Col>
       </Row>
     </Container>
