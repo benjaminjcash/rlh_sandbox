@@ -4,6 +4,7 @@ import DatePickerContainer from '../DatePickerContainer/DatePickerContainer';
 import { Row, Col, Button } from 'reactstrap';
 import './GlobalSearch.css';
 import axios from 'axios';
+import PropertyCardList from '../PropertyCardList/PropertyCardList';
 
 export default class GlobalSearch extends React.Component {
     constructor(props) {
@@ -49,17 +50,24 @@ export default class GlobalSearch extends React.Component {
 
     render() {
         return (
-            <Row>
-                <Col>
-                    <AutosuggestContainer onLocationSelected={this.onLocationSelected}/>
-                </Col>
-                <Col>
-                    <DatePickerContainer onStartDateSelected={this.onStartDateSelected} onEndDateSelected={this.onEndDateSelected}/>
-                </Col>
-                <Col>
-                    <Button color='primary' size='sm' onClick={this.getNearbyProperties}>Check Availability</Button>
-                </Col>
-            </Row>
-        )
+            <div>
+                <Row>
+                    <Col>
+                        <AutosuggestContainer onLocationSelected={this.onLocationSelected}/>
+                    </Col>
+                    <Col>
+                        <DatePickerContainer onStartDateSelected={this.onStartDateSelected} onEndDateSelected={this.onEndDateSelected}/>
+                    </Col>
+                    <Col>
+                        <Button color='primary' size='sm' onClick={this.getNearbyProperties}>Check Availability</Button>
+                    </Col>
+                </Row>
+                <Row>
+                    <Col>
+                        <PropertyCardList properties={this.state.properties}/>
+                    </Col>
+                </Row>
+            </div>
+        );
     }
 }
