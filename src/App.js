@@ -1,17 +1,13 @@
 import React from 'react';
 import { Container, Row, Col } from 'reactstrap';
-import AutosuggestContainer from './components/AutosuggestContainer/AutosuggestContainer';
-import DatePickerContainer from './components/DatePickerContainer/DatePickerContainer';
+import GlobalSearch from './components/GlobalSearch/GlobalSearch';
 
 function App() {
   return (
     <Container>
       <Row>
         <Col>
-          <AutosuggestContainer />
-        </Col>
-        <Col>
-          <DatePickerContainer />
+          <GlobalSearch />
         </Col>
       </Row>
     </Container>

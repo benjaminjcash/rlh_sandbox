@@ -58,6 +58,10 @@ export default class AutosuggestContainer extends React.Component {
         });
     }
 
+    onSuggestionSelected = (event, { suggestion }) => {
+        this.props.onLocationSelected(suggestion);
+    }
+
     onChange = (event, { newValue }) => {
         this.setState({
             value: newValue
@@ -77,6 +81,7 @@ export default class AutosuggestContainer extends React.Component {
                 onSuggestionsFetchRequested={this.onSuggestionsFetchRequested}
                 onSuggestionsClearRequested={this.onSuggestionsClearRequested}
                 getSuggestionValue={this.getSuggestionValue}
+                onSuggestionSelected={this.onSuggestionSelected}
                 inputProps={inputProps}
                 multiSection={true}
                 renderSectionTitle={this.renderSectionTitle}

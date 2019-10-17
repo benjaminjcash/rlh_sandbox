@@ -16,13 +16,15 @@ export default class DatePickerContainer extends React.Component {
         this.setState({
             startDate: date
         });
+        this.props.onStartDateSelected(date);
     };
 
     handleEndDateChange = date => {
         this.setState({
             endDate: date
         });
-    }
+        this.props.onEndDateSelected(date);
+    };
 
      render() {
          return (
